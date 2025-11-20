@@ -171,11 +171,32 @@ fn main() {
     println!("Sum is: {}", sum);
 
     //Variables declared within Code blocks (loops, if statements etc) and Functions are out of scope
+    // The block below has no effect on the variables declared later
+    {
+        let x = 2;
+    }
     //Variables can be replaced with a variable of the same name when not using the mut keyword
     let x = 1;
     let x = 10;
 
     println!("x is {}", x); //prints 10
+
+    //When a variable takes data from another in Rust it is stolen, the original variable no longer has the data
+    let a = String::from("Hello");
+    let b = a;
+
+    //println!("{}", a); error: A no longer owns the value
+    println!("{}", b); //Works since B has the data
+
+    //This does not apply to simple types: numbers, chars and bools are copied
+    // Use .clone(); to copy the data instead
+    // let b = a.clone();
+
+    //Referencing
+    let mut name = String::from("John");
+    let name_ref = &mut name;
+    name_ref.push_str(" Doe");
+    println!("{}", name_ref); // John Doe 
 }
 
 fn say_hello() {
